@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compile c或者c++ to WebAssembly </title>
+    <script src="wasm-load.js"></script>
+</head>
+<body>
+    <h1>Compile C to WebAssembly</h1>
+    <p>The test result can be found in console.</p>
+    <script>
+        loadWebAssembly('./math.wasm')
+                .then(instance => {
+                    console.log(instance)
+                    const square = instance.exports._square
+                    console.log('2^2 =', square(2))
+                    console.log('3^2 =', square(3))
+                    console.log('(2 + 5)^2 =', square(2 + 5))
+                })
+    </script>
+</body>
+</html>

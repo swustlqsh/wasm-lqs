@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Compile C to WebAssembly</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta name="format-detection" content="telephone=no, email=no" />
+  <script src="../wasm-load.js"></script>
+</head>
+
+<body>
+  <h1>Compile C to WebAssembly</h1>
+  <p>The test result can be found in console, also you can interactive computer methods to test it.</p>
+  <span>Enter number: </span>
+  <input type="text" name="num" />
+  <input type="submit" value="Submit" id='square'/>
+  <p id='result'>Squart result: 0</p>
+  <script>
+   loadWebAssembly('math.wasm')
+      .then(instance => {
+        const square = instance.exports._square
+        squareFun = square
+        console.log('2^2 =', square(2))
+        console.log('3^2 =', square(3))
+        console.log('(2 + 5)^2 =', square(2 + 5))
+      })
+
+    let squareFun
+    let squareElement = document.querySelector('input[type=text]')
+    let squareResult = document.querySelector('#result')
+    document.getElementById('square').addEventListener('click', function() {
+    	squareResult.innerHTML = 'Squart result: ' + squareElement.value + '^' + squareElement.value + '= ' + squareFun(parseInt(squareElement.value))
+    })
+  </script>
+</body>
+</html>
