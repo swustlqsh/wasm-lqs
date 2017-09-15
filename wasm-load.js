@@ -14,6 +14,7 @@ function loadWebAssembly(filename, imports = {}) {
 				memory: new WebAssembly.Memory({ initial: 256, maximum: 256 }),
 				table: new WebAssembly.Table({ initial: 0, maximum: 0, element: 'anyfunc' })
 			})
+		    console.log(imports)
 			return new WebAssembly.Instance(module, imports)
 		})
 }
@@ -23,4 +24,9 @@ function loadJS (url, imports = {}) {
 		.then(response => response.text())
 		.then(code => new Function('imports', `return (${code})()`))
 		.then(factory => ({ exports: factory(imports) }))
+}
+
+// Merge 
+function instantiate(bytes, imports) {
+  return WebAssembly.compile(bytes).then(m => new WebAssembly.Instance(m, imports));
 }

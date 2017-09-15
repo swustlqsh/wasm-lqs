@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Compile C to WebAssembly</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta name="format-detection" content="telephone=no, email=no" />
+  <script src="../wasm-load.js"></script>
+</head>
+
+<body>
+  <h1>Compile C++ to WebAssembly</h1>
+  <p>The test result can be found in console, also you can interactive computer methods to test it.</p>
+  <p id='result'>getRandom result: 0</p>
+  <script>
+   let squareFun
+   loadWebAssembly('functions.wasm')
+      .then(instance => {
+        console.log(instance)
+        const square = instance.exports.__Z9getRandomv
+        squareFun = square
+        document.querySelector('#result').innerHTML = 'getRandom result: ' + square()
+      })
+   
+   
+  </script>
+</body>
+</html>

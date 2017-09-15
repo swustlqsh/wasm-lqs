@@ -4,16 +4,16 @@
 ### 配置开发调试环境
 #### 安装编译工具
 参考官方 [Developer’s Guide](http://webassembly.org/getting-started/developers-guide/) 和 [Advanced Tools](http://webassembly.org/getting-started/advanced-tools/)，需要安装的工具有：
-   - [ ] [Emscripten](http://kripken.github.io/emscripten-site/)
-   - [ ] [Binaryen](https://github.com/WebAssembly/binaryen)
-   - [ ] [WABT (WebAssembly Binary Toolkit)](https://github.com/WebAssembly/wabt)
+   -  [Emscripten](http://kripken.github.io/emscripten-site/)
+   -  [Binaryen](https://github.com/WebAssembly/binaryen)
+   -  [WABT (WebAssembly Binary Toolkit)](https://github.com/WebAssembly/wabt)
 
 ==安装之前先检查系统依赖 参考 [toolchain_what_is_needed](https://kripken.github.io/emscripten-site/docs/building_from_source/toolchain_what_is_needed.html#toolchain-what-you-need),然后下载源码,编译安装 ==
 #### 浏览器配置
 作为一个新技术，之所以说 WebAssembly 前途明媚，不仅是因为 W3C 成立了专门的 Webassembly Community Group，被标准认可；也是因为这次各大主流浏览器厂商（难得的）达成了一致，共同参与规范的讨论，在自家的浏览器里都实现了。
 在主流版本里开启 flag 也是可以使用 WebAssembly 的：
-- [ ] Chrome: 打开 chrome://flags/#enable-webassembly，选择 enable
-- [ ] Firefox: 打开 about:config 将 javascript.options.wasm 设置为 true
+- Chrome: 打开 chrome://flags/#enable-webassembly，选择 enable
+- Firefox: 打开 about:config 将 javascript.options.wasm 设置为 true
 
 #### 快速体验 WebAssembly
 快速体验 WebAssembly ？最简单的办法就是找个支持 WebAssembly 的浏览器，打开控制台，把下列代码粘贴进去。
@@ -39,16 +39,10 @@ WebAssembly.compile(new Uint8Array(`
    `3^2 = 9`
    `(2 + 5)^2 = 49`
 
-##### 解释代码
-WebAssembly 提供了 [JS API]（http://webassembly.org/docs/js/），其中 WebAssembly.compile 可以用来编译 wasm 的二进制源码，它接受 BufferSource 格式的参数，返回一个 Promise。
-代码中的前几行就是将二进制字符串转化为ArrayBuffer
-`
-new Uint8Array(
-  '...'.trim().split(/[\s\r\n]+/g).map(str => parseInt(str, 16))
-)
-`
-
-
+### WebAssembly Standalone
+By default **emcc** creates a combination of JS files and WebAssembly, where the JS loads the WebAssembly which contains the compiled code. There is also progress towards an option to emit standalone WebAssembly files, which is detailed here.
+**Usage**
+emcc [params for your input files, optimization level, etc.] -s WASM=1 -s SIDE_MODULE=1 -o target.wasm
 
 
 
